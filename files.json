@@ -1,0 +1,322 @@
+{
+    "File1": {
+        "filepath": ".env.example",
+        "content": "# Beispiel-Umgebungsvariablen\nOPENAI_API_KEY=your-key-here\n"
+    },
+    "File2": {
+        "filepath": ".gitignore",
+        "content": "__pycache__/\n*.pyc\n.env\n.env.*\n.idea/\n.vscode/\n*.log\n*.sqlite3\ndist/\nbuild/\n"
+    },
+    "File3": {
+        "filepath": "dir.py",
+        "content": "import os\nimport json\n\ndef scan_directory_to_json(directory_path, output_json_path=\"files.json\"):\n    files_dict = {}\n    counter = 1\n\n    for root, _, files in os.walk(directory_path):\n        for file in files:\n            full_path = os.path.join(root, file)\n            rel_path = os.path.relpath(full_path, os.getcwd())\n\n            try:\n                with open(full_path, \"r\", encoding=\"utf-8\") as f:\n                    content = f.read()\n            except Exception as e:\n                content = f\"<Fehler beim Lesen: {e}>\"\n\n            files_dict[f\"File{counter}\"] = {\n                \"filepath\": rel_path,\n                \"content\": content\n            }\n            counter += 1\n\n    with open(output_json_path, \"w\", encoding=\"utf-8\") as f:\n        json.dump(files_dict, f, ensure_ascii=False, indent=4)\n\n    print(f\"✅ JSON-Datei wurde erstellt unter: {output_json_path}\")\n\n# Beispiel-Aufruf\nif __name__ == \"__main__\":\n    scan_directory_to_json(\".\")  # aktuelles Verzeichnis\n"
+    },
+    "File4": {
+        "filepath": "docker-compose.yml",
+        "content": "# docker-compose zum Starten der App (optional mit Vector DB)\nversion: '3.8'\nservices:\n  app:\n    build: .\n    volumes:\n      - .:/app\n    command: python app/entrypoints/cli.py\n"
+    },
+    "File5": {
+        "filepath": "Dockerfile",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xfc in position 14: invalid start byte>"
+    },
+    "File6": {
+        "filepath": "pyproject.toml",
+        "content": "[tool.black]\nline-length = 88\n\n[tool.isort]\nprofile = \"black\"\n"
+    },
+    "File7": {
+        "filepath": "README.md",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xf6 in position 89: invalid start byte>"
+    },
+    "File8": {
+        "filepath": "requirements.txt",
+        "content": "# Anforderungen\nopenai\nPyPDF2\nlangchain\nfaiss-cpu\npython-dotenv\n"
+    },
+    "File9": {
+        "filepath": ".git\\COMMIT_EDITMSG",
+        "content": "first python files created\n"
+    },
+    "File10": {
+        "filepath": ".git\\config",
+        "content": "[core]\n\trepositoryformatversion = 0\n\tfilemode = false\n\tbare = false\n\tlogallrefupdates = true\n\tsymlinks = false\n\tignorecase = true\n[remote \"origin\"]\n\turl = git@github.com:marodatavision/coding-challenge-maximilian-rosen.git\n\tfetch = +refs/heads/*:refs/remotes/origin/*\n[branch \"main\"]\n\tremote = origin\n\tmerge = refs/heads/main\n"
+    },
+    "File11": {
+        "filepath": ".git\\description",
+        "content": "Unnamed repository; edit this file 'description' to name the repository.\n"
+    },
+    "File12": {
+        "filepath": ".git\\FETCH_HEAD",
+        "content": ""
+    },
+    "File13": {
+        "filepath": ".git\\HEAD",
+        "content": "ref: refs/heads/main\n"
+    },
+    "File14": {
+        "filepath": ".git\\index",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x8a in position 13: invalid start byte>"
+    },
+    "File15": {
+        "filepath": ".git\\hooks\\applypatch-msg.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to check the commit log message taken by\n# applypatch from an e-mail message.\n#\n# The hook should exit with non-zero status after issuing an\n# appropriate message if it wants to stop the commit.  The hook is\n# allowed to edit the commit message file.\n#\n# To enable this hook, rename this file to \"applypatch-msg\".\n\n. git-sh-setup\ncommitmsg=\"$(git rev-parse --git-path hooks/commit-msg)\"\ntest -x \"$commitmsg\" && exec \"$commitmsg\" ${1+\"$@\"}\n:\n"
+    },
+    "File16": {
+        "filepath": ".git\\hooks\\commit-msg.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to check the commit log message.\n# Called by \"git commit\" with one argument, the name of the file\n# that has the commit message.  The hook should exit with non-zero\n# status after issuing an appropriate message if it wants to stop the\n# commit.  The hook is allowed to edit the commit message file.\n#\n# To enable this hook, rename this file to \"commit-msg\".\n\n# Uncomment the below to add a Signed-off-by line to the message.\n# Doing this in a hook is a bad idea in general, but the prepare-commit-msg\n# hook is more suited to it.\n#\n# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\\(.*>\\).*$/Signed-off-by: \\1/p')\n# grep -qs \"^$SOB\" \"$1\" || echo \"$SOB\" >> \"$1\"\n\n# This example catches duplicate Signed-off-by lines.\n\ntest \"\" = \"$(grep '^Signed-off-by: ' \"$1\" |\n\t sort | uniq -c | sed -e '/^[ \t]*1[ \t]/d')\" || {\n\techo >&2 Duplicate Signed-off-by lines.\n\texit 1\n}\n"
+    },
+    "File17": {
+        "filepath": ".git\\hooks\\fsmonitor-watchman.sample",
+        "content": "#!/usr/bin/perl\n\nuse strict;\nuse warnings;\nuse IPC::Open2;\n\n# An example hook script to integrate Watchman\n# (https://facebook.github.io/watchman/) with git to speed up detecting\n# new and modified files.\n#\n# The hook is passed a version (currently 2) and last update token\n# formatted as a string and outputs to stdout a new update token and\n# all files that have been modified since the update token. Paths must\n# be relative to the root of the working tree and separated by a single NUL.\n#\n# To enable this hook, rename this file to \"query-watchman\" and set\n# 'git config core.fsmonitor .git/hooks/query-watchman'\n#\nmy ($version, $last_update_token) = @ARGV;\n\n# Uncomment for debugging\n# print STDERR \"$0 $version $last_update_token\\n\";\n\n# Check the hook interface version\nif ($version ne 2) {\n\tdie \"Unsupported query-fsmonitor hook version '$version'.\\n\" .\n\t    \"Falling back to scanning...\\n\";\n}\n\nmy $git_work_tree = get_working_dir();\n\nmy $retry = 1;\n\nmy $json_pkg;\neval {\n\trequire JSON::XS;\n\t$json_pkg = \"JSON::XS\";\n\t1;\n} or do {\n\trequire JSON::PP;\n\t$json_pkg = \"JSON::PP\";\n};\n\nlaunch_watchman();\n\nsub launch_watchman {\n\tmy $o = watchman_query();\n\tif (is_work_tree_watched($o)) {\n\t\toutput_result($o->{clock}, @{$o->{files}});\n\t}\n}\n\nsub output_result {\n\tmy ($clockid, @files) = @_;\n\n\t# Uncomment for debugging watchman output\n\t# open (my $fh, \">\", \".git/watchman-output.out\");\n\t# binmode $fh, \":utf8\";\n\t# print $fh \"$clockid\\n@files\\n\";\n\t# close $fh;\n\n\tbinmode STDOUT, \":utf8\";\n\tprint $clockid;\n\tprint \"\\0\";\n\tlocal $, = \"\\0\";\n\tprint @files;\n}\n\nsub watchman_clock {\n\tmy $response = qx/watchman clock \"$git_work_tree\"/;\n\tdie \"Failed to get clock id on '$git_work_tree'.\\n\" .\n\t\t\"Falling back to scanning...\\n\" if $? != 0;\n\n\treturn $json_pkg->new->utf8->decode($response);\n}\n\nsub watchman_query {\n\tmy $pid = open2(\\*CHLD_OUT, \\*CHLD_IN, 'watchman -j --no-pretty')\n\tor die \"open2() failed: $!\\n\" .\n\t\"Falling back to scanning...\\n\";\n\n\t# In the query expression below we're asking for names of files that\n\t# changed since $last_update_token but not from the .git folder.\n\t#\n\t# To accomplish this, we're using the \"since\" generator to use the\n\t# recency index to select candidate nodes and \"fields\" to limit the\n\t# output to file names only. Then we're using the \"expression\" term to\n\t# further constrain the results.\n\tmy $last_update_line = \"\";\n\tif (substr($last_update_token, 0, 1) eq \"c\") {\n\t\t$last_update_token = \"\\\"$last_update_token\\\"\";\n\t\t$last_update_line = qq[\\n\"since\": $last_update_token,];\n\t}\n\tmy $query = <<\"\tEND\";\n\t\t[\"query\", \"$git_work_tree\", {$last_update_line\n\t\t\t\"fields\": [\"name\"],\n\t\t\t\"expression\": [\"not\", [\"dirname\", \".git\"]]\n\t\t}]\n\tEND\n\n\t# Uncomment for debugging the watchman query\n\t# open (my $fh, \">\", \".git/watchman-query.json\");\n\t# print $fh $query;\n\t# close $fh;\n\n\tprint CHLD_IN $query;\n\tclose CHLD_IN;\n\tmy $response = do {local $/; <CHLD_OUT>};\n\n\t# Uncomment for debugging the watch response\n\t# open ($fh, \">\", \".git/watchman-response.json\");\n\t# print $fh $response;\n\t# close $fh;\n\n\tdie \"Watchman: command returned no output.\\n\" .\n\t\"Falling back to scanning...\\n\" if $response eq \"\";\n\tdie \"Watchman: command returned invalid output: $response\\n\" .\n\t\"Falling back to scanning...\\n\" unless $response =~ /^\\{/;\n\n\treturn $json_pkg->new->utf8->decode($response);\n}\n\nsub is_work_tree_watched {\n\tmy ($output) = @_;\n\tmy $error = $output->{error};\n\tif ($retry > 0 and $error and $error =~ m/unable to resolve root .* directory (.*) is not watched/) {\n\t\t$retry--;\n\t\tmy $response = qx/watchman watch \"$git_work_tree\"/;\n\t\tdie \"Failed to make watchman watch '$git_work_tree'.\\n\" .\n\t\t    \"Falling back to scanning...\\n\" if $? != 0;\n\t\t$output = $json_pkg->new->utf8->decode($response);\n\t\t$error = $output->{error};\n\t\tdie \"Watchman: $error.\\n\" .\n\t\t\"Falling back to scanning...\\n\" if $error;\n\n\t\t# Uncomment for debugging watchman output\n\t\t# open (my $fh, \">\", \".git/watchman-output.out\");\n\t\t# close $fh;\n\n\t\t# Watchman will always return all files on the first query so\n\t\t# return the fast \"everything is dirty\" flag to git and do the\n\t\t# Watchman query just to get it over with now so we won't pay\n\t\t# the cost in git to look up each individual file.\n\t\tmy $o = watchman_clock();\n\t\t$error = $output->{error};\n\n\t\tdie \"Watchman: $error.\\n\" .\n\t\t\"Falling back to scanning...\\n\" if $error;\n\n\t\toutput_result($o->{clock}, (\"/\"));\n\t\t$last_update_token = $o->{clock};\n\n\t\teval { launch_watchman() };\n\t\treturn 0;\n\t}\n\n\tdie \"Watchman: $error.\\n\" .\n\t\"Falling back to scanning...\\n\" if $error;\n\n\treturn 1;\n}\n\nsub get_working_dir {\n\tmy $working_dir;\n\tif ($^O =~ 'msys' || $^O =~ 'cygwin') {\n\t\t$working_dir = Win32::GetCwd();\n\t\t$working_dir =~ tr/\\\\/\\//;\n\t} else {\n\t\trequire Cwd;\n\t\t$working_dir = Cwd::cwd();\n\t}\n\n\treturn $working_dir;\n}\n"
+    },
+    "File18": {
+        "filepath": ".git\\hooks\\post-update.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to prepare a packed repository for use over\n# dumb transports.\n#\n# To enable this hook, rename this file to \"post-update\".\n\nexec git update-server-info\n"
+    },
+    "File19": {
+        "filepath": ".git\\hooks\\pre-applypatch.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to verify what is about to be committed\n# by applypatch from an e-mail message.\n#\n# The hook should exit with non-zero status after issuing an\n# appropriate message if it wants to stop the commit.\n#\n# To enable this hook, rename this file to \"pre-applypatch\".\n\n. git-sh-setup\nprecommit=\"$(git rev-parse --git-path hooks/pre-commit)\"\ntest -x \"$precommit\" && exec \"$precommit\" ${1+\"$@\"}\n:\n"
+    },
+    "File20": {
+        "filepath": ".git\\hooks\\pre-commit.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to verify what is about to be committed.\n# Called by \"git commit\" with no arguments.  The hook should\n# exit with non-zero status after issuing an appropriate message if\n# it wants to stop the commit.\n#\n# To enable this hook, rename this file to \"pre-commit\".\n\nif git rev-parse --verify HEAD >/dev/null 2>&1\nthen\n\tagainst=HEAD\nelse\n\t# Initial commit: diff against an empty tree object\n\tagainst=$(git hash-object -t tree /dev/null)\nfi\n\n# If you want to allow non-ASCII filenames set this variable to true.\nallownonascii=$(git config --type=bool hooks.allownonascii)\n\n# Redirect output to stderr.\nexec 1>&2\n\n# Cross platform projects tend to avoid non-ASCII filenames; prevent\n# them from being added to the repository. We exploit the fact that the\n# printable range starts at the space character and ends with tilde.\nif [ \"$allownonascii\" != \"true\" ] &&\n\t# Note that the use of brackets around a tr range is ok here, (it's\n\t# even required, for portability to Solaris 10's /usr/bin/tr), since\n\t# the square bracket bytes happen to fall in the designated range.\n\ttest $(git diff-index --cached --name-only --diff-filter=A -z $against |\n\t  LC_ALL=C tr -d '[ -~]\\0' | wc -c) != 0\nthen\n\tcat <<\\EOF\nError: Attempt to add a non-ASCII file name.\n\nThis can cause problems if you want to work with people on other platforms.\n\nTo be portable it is advisable to rename the file.\n\nIf you know what you are doing you can disable this check using:\n\n  git config hooks.allownonascii true\nEOF\n\texit 1\nfi\n\n# If there are whitespace errors, print the offending file names and fail.\nexec git diff-index --check --cached $against --\n"
+    },
+    "File21": {
+        "filepath": ".git\\hooks\\pre-merge-commit.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to verify what is about to be committed.\n# Called by \"git merge\" with no arguments.  The hook should\n# exit with non-zero status after issuing an appropriate message to\n# stderr if it wants to stop the merge commit.\n#\n# To enable this hook, rename this file to \"pre-merge-commit\".\n\n. git-sh-setup\ntest -x \"$GIT_DIR/hooks/pre-commit\" &&\n        exec \"$GIT_DIR/hooks/pre-commit\"\n:\n"
+    },
+    "File22": {
+        "filepath": ".git\\hooks\\pre-push.sample",
+        "content": "#!/bin/sh\n\n# An example hook script to verify what is about to be pushed.  Called by \"git\n# push\" after it has checked the remote status, but before anything has been\n# pushed.  If this script exits with a non-zero status nothing will be pushed.\n#\n# This hook is called with the following parameters:\n#\n# $1 -- Name of the remote to which the push is being done\n# $2 -- URL to which the push is being done\n#\n# If pushing without using a named remote those arguments will be equal.\n#\n# Information about the commits which are being pushed is supplied as lines to\n# the standard input in the form:\n#\n#   <local ref> <local oid> <remote ref> <remote oid>\n#\n# This sample shows how to prevent push of commits where the log message starts\n# with \"WIP\" (work in progress).\n\nremote=\"$1\"\nurl=\"$2\"\n\nzero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')\n\nwhile read local_ref local_oid remote_ref remote_oid\ndo\n\tif test \"$local_oid\" = \"$zero\"\n\tthen\n\t\t# Handle delete\n\t\t:\n\telse\n\t\tif test \"$remote_oid\" = \"$zero\"\n\t\tthen\n\t\t\t# New branch, examine all commits\n\t\t\trange=\"$local_oid\"\n\t\telse\n\t\t\t# Update to existing branch, examine new commits\n\t\t\trange=\"$remote_oid..$local_oid\"\n\t\tfi\n\n\t\t# Check for WIP commit\n\t\tcommit=$(git rev-list -n 1 --grep '^WIP' \"$range\")\n\t\tif test -n \"$commit\"\n\t\tthen\n\t\t\techo >&2 \"Found WIP commit in $local_ref, not pushing\"\n\t\t\texit 1\n\t\tfi\n\tfi\ndone\n\nexit 0\n"
+    },
+    "File23": {
+        "filepath": ".git\\hooks\\pre-rebase.sample",
+        "content": "#!/bin/sh\n#\n# Copyright (c) 2006, 2008 Junio C Hamano\n#\n# The \"pre-rebase\" hook is run just before \"git rebase\" starts doing\n# its job, and can prevent the command from running by exiting with\n# non-zero status.\n#\n# The hook is called with the following parameters:\n#\n# $1 -- the upstream the series was forked from.\n# $2 -- the branch being rebased (or empty when rebasing the current branch).\n#\n# This sample shows how to prevent topic branches that are already\n# merged to 'next' branch from getting rebased, because allowing it\n# would result in rebasing already published history.\n\npublish=next\nbasebranch=\"$1\"\nif test \"$#\" = 2\nthen\n\ttopic=\"refs/heads/$2\"\nelse\n\ttopic=`git symbolic-ref HEAD` ||\n\texit 0 ;# we do not interrupt rebasing detached HEAD\nfi\n\ncase \"$topic\" in\nrefs/heads/??/*)\n\t;;\n*)\n\texit 0 ;# we do not interrupt others.\n\t;;\nesac\n\n# Now we are dealing with a topic branch being rebased\n# on top of master.  Is it OK to rebase it?\n\n# Does the topic really exist?\ngit show-ref -q \"$topic\" || {\n\techo >&2 \"No such branch $topic\"\n\texit 1\n}\n\n# Is topic fully merged to master?\nnot_in_master=`git rev-list --pretty=oneline ^master \"$topic\"`\nif test -z \"$not_in_master\"\nthen\n\techo >&2 \"$topic is fully merged to master; better remove it.\"\n\texit 1 ;# we could allow it, but there is no point.\nfi\n\n# Is topic ever merged to next?  If so you should not be rebasing it.\nonly_next_1=`git rev-list ^master \"^$topic\" ${publish} | sort`\nonly_next_2=`git rev-list ^master           ${publish} | sort`\nif test \"$only_next_1\" = \"$only_next_2\"\nthen\n\tnot_in_topic=`git rev-list \"^$topic\" master`\n\tif test -z \"$not_in_topic\"\n\tthen\n\t\techo >&2 \"$topic is already up to date with master\"\n\t\texit 1 ;# we could allow it, but there is no point.\n\telse\n\t\texit 0\n\tfi\nelse\n\tnot_in_next=`git rev-list --pretty=oneline ^${publish} \"$topic\"`\n\t/usr/bin/perl -e '\n\t\tmy $topic = $ARGV[0];\n\t\tmy $msg = \"* $topic has commits already merged to public branch:\\n\";\n\t\tmy (%not_in_next) = map {\n\t\t\t/^([0-9a-f]+) /;\n\t\t\t($1 => 1);\n\t\t} split(/\\n/, $ARGV[1]);\n\t\tfor my $elem (map {\n\t\t\t\t/^([0-9a-f]+) (.*)$/;\n\t\t\t\t[$1 => $2];\n\t\t\t} split(/\\n/, $ARGV[2])) {\n\t\t\tif (!exists $not_in_next{$elem->[0]}) {\n\t\t\t\tif ($msg) {\n\t\t\t\t\tprint STDERR $msg;\n\t\t\t\t\tundef $msg;\n\t\t\t\t}\n\t\t\t\tprint STDERR \" $elem->[1]\\n\";\n\t\t\t}\n\t\t}\n\t' \"$topic\" \"$not_in_next\" \"$not_in_master\"\n\texit 1\nfi\n\n<<\\DOC_END\n\nThis sample hook safeguards topic branches that have been\npublished from being rewound.\n\nThe workflow assumed here is:\n\n * Once a topic branch forks from \"master\", \"master\" is never\n   merged into it again (either directly or indirectly).\n\n * Once a topic branch is fully cooked and merged into \"master\",\n   it is deleted.  If you need to build on top of it to correct\n   earlier mistakes, a new topic branch is created by forking at\n   the tip of the \"master\".  This is not strictly necessary, but\n   it makes it easier to keep your history simple.\n\n * Whenever you need to test or publish your changes to topic\n   branches, merge them into \"next\" branch.\n\nThe script, being an example, hardcodes the publish branch name\nto be \"next\", but it is trivial to make it configurable via\n$GIT_DIR/config mechanism.\n\nWith this workflow, you would want to know:\n\n(1) ... if a topic branch has ever been merged to \"next\".  Young\n    topic branches can have stupid mistakes you would rather\n    clean up before publishing, and things that have not been\n    merged into other branches can be easily rebased without\n    affecting other people.  But once it is published, you would\n    not want to rewind it.\n\n(2) ... if a topic branch has been fully merged to \"master\".\n    Then you can delete it.  More importantly, you should not\n    build on top of it -- other people may already want to\n    change things related to the topic as patches against your\n    \"master\", so if you need further changes, it is better to\n    fork the topic (perhaps with the same name) afresh from the\n    tip of \"master\".\n\nLet's look at this example:\n\n\t\t   o---o---o---o---o---o---o---o---o---o \"next\"\n\t\t  /       /           /           /\n\t\t /   a---a---b A     /           /\n\t\t/   /               /           /\n\t       /   /   c---c---c---c B         /\n\t      /   /   /             \\         /\n\t     /   /   /   b---b C     \\       /\n\t    /   /   /   /             \\     /\n    ---o---o---o---o---o---o---o---o---o---o---o \"master\"\n\n\nA, B and C are topic branches.\n\n * A has one fix since it was merged up to \"next\".\n\n * B has finished.  It has been fully merged up to \"master\" and \"next\",\n   and is ready to be deleted.\n\n * C has not merged to \"next\" at all.\n\nWe would want to allow C to be rebased, refuse A, and encourage\nB to be deleted.\n\nTo compute (1):\n\n\tgit rev-list ^master ^topic next\n\tgit rev-list ^master        next\n\n\tif these match, topic has not merged in next at all.\n\nTo compute (2):\n\n\tgit rev-list master..topic\n\n\tif this is empty, it is fully merged to \"master\".\n\nDOC_END\n"
+    },
+    "File24": {
+        "filepath": ".git\\hooks\\pre-receive.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to make use of push options.\n# The example simply echoes all push options that start with 'echoback='\n# and rejects all pushes when the \"reject\" push option is used.\n#\n# To enable this hook, rename this file to \"pre-receive\".\n\nif test -n \"$GIT_PUSH_OPTION_COUNT\"\nthen\n\ti=0\n\twhile test \"$i\" -lt \"$GIT_PUSH_OPTION_COUNT\"\n\tdo\n\t\teval \"value=\\$GIT_PUSH_OPTION_$i\"\n\t\tcase \"$value\" in\n\t\techoback=*)\n\t\t\techo \"echo from the pre-receive-hook: ${value#*=}\" >&2\n\t\t\t;;\n\t\treject)\n\t\t\texit 1\n\t\tesac\n\t\ti=$((i + 1))\n\tdone\nfi\n"
+    },
+    "File25": {
+        "filepath": ".git\\hooks\\prepare-commit-msg.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to prepare the commit log message.\n# Called by \"git commit\" with the name of the file that has the\n# commit message, followed by the description of the commit\n# message's source.  The hook's purpose is to edit the commit\n# message file.  If the hook fails with a non-zero status,\n# the commit is aborted.\n#\n# To enable this hook, rename this file to \"prepare-commit-msg\".\n\n# This hook includes three examples. The first one removes the\n# \"# Please enter the commit message...\" help message.\n#\n# The second includes the output of \"git diff --name-status -r\"\n# into the message, just before the \"git status\" output.  It is\n# commented because it doesn't cope with --amend or with squashed\n# commits.\n#\n# The third example adds a Signed-off-by line to the message, that can\n# still be edited.  This is rarely a good idea.\n\nCOMMIT_MSG_FILE=$1\nCOMMIT_SOURCE=$2\nSHA1=$3\n\n/usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' \"$COMMIT_MSG_FILE\"\n\n# case \"$COMMIT_SOURCE,$SHA1\" in\n#  ,|template,)\n#    /usr/bin/perl -i.bak -pe '\n#       print \"\\n\" . `git diff --cached --name-status -r`\n# \t if /^#/ && $first++ == 0' \"$COMMIT_MSG_FILE\" ;;\n#  *) ;;\n# esac\n\n# SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\\(.*>\\).*$/Signed-off-by: \\1/p')\n# git interpret-trailers --in-place --trailer \"$SOB\" \"$COMMIT_MSG_FILE\"\n# if test -z \"$COMMIT_SOURCE\"\n# then\n#   /usr/bin/perl -i.bak -pe 'print \"\\n\" if !$first_line++' \"$COMMIT_MSG_FILE\"\n# fi\n"
+    },
+    "File26": {
+        "filepath": ".git\\hooks\\push-to-checkout.sample",
+        "content": "#!/bin/sh\n\n# An example hook script to update a checked-out tree on a git push.\n#\n# This hook is invoked by git-receive-pack(1) when it reacts to git\n# push and updates reference(s) in its repository, and when the push\n# tries to update the branch that is currently checked out and the\n# receive.denyCurrentBranch configuration variable is set to\n# updateInstead.\n#\n# By default, such a push is refused if the working tree and the index\n# of the remote repository has any difference from the currently\n# checked out commit; when both the working tree and the index match\n# the current commit, they are updated to match the newly pushed tip\n# of the branch. This hook is to be used to override the default\n# behaviour; however the code below reimplements the default behaviour\n# as a starting point for convenient modification.\n#\n# The hook receives the commit with which the tip of the current\n# branch is going to be updated:\ncommit=$1\n\n# It can exit with a non-zero status to refuse the push (when it does\n# so, it must not modify the index or the working tree).\ndie () {\n\techo >&2 \"$*\"\n\texit 1\n}\n\n# Or it can make any necessary changes to the working tree and to the\n# index to bring them to the desired state when the tip of the current\n# branch is updated to the new commit, and exit with a zero status.\n#\n# For example, the hook can simply run git read-tree -u -m HEAD \"$1\"\n# in order to emulate git fetch that is run in the reverse direction\n# with git push, as the two-tree form of git read-tree -u -m is\n# essentially the same as git switch or git checkout that switches\n# branches while keeping the local changes in the working tree that do\n# not interfere with the difference between the branches.\n\n# The below is a more-or-less exact translation to shell of the C code\n# for the default behaviour for git's push-to-checkout hook defined in\n# the push_to_deploy() function in builtin/receive-pack.c.\n#\n# Note that the hook will be executed from the repository directory,\n# not from the working tree, so if you want to perform operations on\n# the working tree, you will have to adapt your code accordingly, e.g.\n# by adding \"cd ..\" or using relative paths.\n\nif ! git update-index -q --ignore-submodules --refresh\nthen\n\tdie \"Up-to-date check failed\"\nfi\n\nif ! git diff-files --quiet --ignore-submodules --\nthen\n\tdie \"Working directory has unstaged changes\"\nfi\n\n# This is a rough translation of:\n#\n#   head_has_history() ? \"HEAD\" : EMPTY_TREE_SHA1_HEX\nif git cat-file -e HEAD 2>/dev/null\nthen\n\thead=HEAD\nelse\n\thead=$(git hash-object -t tree --stdin </dev/null)\nfi\n\nif ! git diff-index --quiet --cached --ignore-submodules $head --\nthen\n\tdie \"Working directory has staged changes\"\nfi\n\nif ! git read-tree -u -m \"$commit\"\nthen\n\tdie \"Could not update working tree to new HEAD\"\nfi\n"
+    },
+    "File27": {
+        "filepath": ".git\\hooks\\sendemail-validate.sample",
+        "content": "#!/bin/sh\n\n# An example hook script to validate a patch (and/or patch series) before\n# sending it via email.\n#\n# The hook should exit with non-zero status after issuing an appropriate\n# message if it wants to prevent the email(s) from being sent.\n#\n# To enable this hook, rename this file to \"sendemail-validate\".\n#\n# By default, it will only check that the patch(es) can be applied on top of\n# the default upstream branch without conflicts in a secondary worktree. After\n# validation (successful or not) of the last patch of a series, the worktree\n# will be deleted.\n#\n# The following config variables can be set to change the default remote and\n# remote ref that are used to apply the patches against:\n#\n#   sendemail.validateRemote (default: origin)\n#   sendemail.validateRemoteRef (default: HEAD)\n#\n# Replace the TODO placeholders with appropriate checks according to your\n# needs.\n\nvalidate_cover_letter () {\n\tfile=\"$1\"\n\t# TODO: Replace with appropriate checks (e.g. spell checking).\n\ttrue\n}\n\nvalidate_patch () {\n\tfile=\"$1\"\n\t# Ensure that the patch applies without conflicts.\n\tgit am -3 \"$file\" || return\n\t# TODO: Replace with appropriate checks for this patch\n\t# (e.g. checkpatch.pl).\n\ttrue\n}\n\nvalidate_series () {\n\t# TODO: Replace with appropriate checks for the whole series\n\t# (e.g. quick build, coding style checks, etc.).\n\ttrue\n}\n\n# main -------------------------------------------------------------------------\n\nif test \"$GIT_SENDEMAIL_FILE_COUNTER\" = 1\nthen\n\tremote=$(git config --default origin --get sendemail.validateRemote) &&\n\tref=$(git config --default HEAD --get sendemail.validateRemoteRef) &&\n\tworktree=$(mktemp --tmpdir -d sendemail-validate.XXXXXXX) &&\n\tgit worktree add -fd --checkout \"$worktree\" \"refs/remotes/$remote/$ref\" &&\n\tgit config --replace-all sendemail.validateWorktree \"$worktree\"\nelse\n\tworktree=$(git config --get sendemail.validateWorktree)\nfi || {\n\techo \"sendemail-validate: error: failed to prepare worktree\" >&2\n\texit 1\n}\n\nunset GIT_DIR GIT_WORK_TREE\ncd \"$worktree\" &&\n\nif grep -q \"^diff --git \" \"$1\"\nthen\n\tvalidate_patch \"$1\"\nelse\n\tvalidate_cover_letter \"$1\"\nfi &&\n\nif test \"$GIT_SENDEMAIL_FILE_COUNTER\" = \"$GIT_SENDEMAIL_FILE_TOTAL\"\nthen\n\tgit config --unset-all sendemail.validateWorktree &&\n\ttrap 'git worktree remove -ff \"$worktree\"' EXIT &&\n\tvalidate_series\nfi\n"
+    },
+    "File28": {
+        "filepath": ".git\\hooks\\update.sample",
+        "content": "#!/bin/sh\n#\n# An example hook script to block unannotated tags from entering.\n# Called by \"git receive-pack\" with arguments: refname sha1-old sha1-new\n#\n# To enable this hook, rename this file to \"update\".\n#\n# Config\n# ------\n# hooks.allowunannotated\n#   This boolean sets whether unannotated tags will be allowed into the\n#   repository.  By default they won't be.\n# hooks.allowdeletetag\n#   This boolean sets whether deleting tags will be allowed in the\n#   repository.  By default they won't be.\n# hooks.allowmodifytag\n#   This boolean sets whether a tag may be modified after creation. By default\n#   it won't be.\n# hooks.allowdeletebranch\n#   This boolean sets whether deleting branches will be allowed in the\n#   repository.  By default they won't be.\n# hooks.denycreatebranch\n#   This boolean sets whether remotely creating branches will be denied\n#   in the repository.  By default this is allowed.\n#\n\n# --- Command line\nrefname=\"$1\"\noldrev=\"$2\"\nnewrev=\"$3\"\n\n# --- Safety check\nif [ -z \"$GIT_DIR\" ]; then\n\techo \"Don't run this script from the command line.\" >&2\n\techo \" (if you want, you could supply GIT_DIR then run\" >&2\n\techo \"  $0 <ref> <oldrev> <newrev>)\" >&2\n\texit 1\nfi\n\nif [ -z \"$refname\" -o -z \"$oldrev\" -o -z \"$newrev\" ]; then\n\techo \"usage: $0 <ref> <oldrev> <newrev>\" >&2\n\texit 1\nfi\n\n# --- Config\nallowunannotated=$(git config --type=bool hooks.allowunannotated)\nallowdeletebranch=$(git config --type=bool hooks.allowdeletebranch)\ndenycreatebranch=$(git config --type=bool hooks.denycreatebranch)\nallowdeletetag=$(git config --type=bool hooks.allowdeletetag)\nallowmodifytag=$(git config --type=bool hooks.allowmodifytag)\n\n# check for no description\nprojectdesc=$(sed -e '1q' \"$GIT_DIR/description\")\ncase \"$projectdesc\" in\n\"Unnamed repository\"* | \"\")\n\techo \"*** Project description file hasn't been set\" >&2\n\texit 1\n\t;;\nesac\n\n# --- Check types\n# if $newrev is 0000...0000, it's a commit to delete a ref.\nzero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')\nif [ \"$newrev\" = \"$zero\" ]; then\n\tnewrev_type=delete\nelse\n\tnewrev_type=$(git cat-file -t $newrev)\nfi\n\ncase \"$refname\",\"$newrev_type\" in\n\trefs/tags/*,commit)\n\t\t# un-annotated tag\n\t\tshort_refname=${refname##refs/tags/}\n\t\tif [ \"$allowunannotated\" != \"true\" ]; then\n\t\t\techo \"*** The un-annotated tag, $short_refname, is not allowed in this repository\" >&2\n\t\t\techo \"*** Use 'git tag [ -a | -s ]' for tags you want to propagate.\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\trefs/tags/*,delete)\n\t\t# delete tag\n\t\tif [ \"$allowdeletetag\" != \"true\" ]; then\n\t\t\techo \"*** Deleting a tag is not allowed in this repository\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\trefs/tags/*,tag)\n\t\t# annotated tag\n\t\tif [ \"$allowmodifytag\" != \"true\" ] && git rev-parse $refname > /dev/null 2>&1\n\t\tthen\n\t\t\techo \"*** Tag '$refname' already exists.\" >&2\n\t\t\techo \"*** Modifying a tag is not allowed in this repository.\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\trefs/heads/*,commit)\n\t\t# branch\n\t\tif [ \"$oldrev\" = \"$zero\" -a \"$denycreatebranch\" = \"true\" ]; then\n\t\t\techo \"*** Creating a branch is not allowed in this repository\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\trefs/heads/*,delete)\n\t\t# delete branch\n\t\tif [ \"$allowdeletebranch\" != \"true\" ]; then\n\t\t\techo \"*** Deleting a branch is not allowed in this repository\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\trefs/remotes/*,commit)\n\t\t# tracking branch\n\t\t;;\n\trefs/remotes/*,delete)\n\t\t# delete tracking branch\n\t\tif [ \"$allowdeletebranch\" != \"true\" ]; then\n\t\t\techo \"*** Deleting a tracking branch is not allowed in this repository\" >&2\n\t\t\texit 1\n\t\tfi\n\t\t;;\n\t*)\n\t\t# Anything else (is there anything else?)\n\t\techo \"*** Update hook: unknown type of update to ref $refname of type $newrev_type\" >&2\n\t\texit 1\n\t\t;;\nesac\n\n# --- Finished\nexit 0\n"
+    },
+    "File29": {
+        "filepath": ".git\\info\\exclude",
+        "content": "# git ls-files --others --exclude-from=.git/info/exclude\n# Lines that start with '#' are comments.\n# For a project mostly in C, the following would be a good set of\n# exclude patterns (uncomment them if you want to use them):\n# *.[oa]\n# *~\n"
+    },
+    "File30": {
+        "filepath": ".git\\logs\\HEAD",
+        "content": "0000000000000000000000000000000000000000 585ffd2143bc5351add949bb9c38ea4373bb6b5c marodatavision <maxrosen926@gmail.com> 1753906492 +0200\tcommit (initial): first commit\n585ffd2143bc5351add949bb9c38ea4373bb6b5c 3faed320003b2c450403a96850f427ad7ac87c88 marodatavision <maxrosen926@gmail.com> 1753907502 +0200\tcommit: first python files created\n"
+    },
+    "File31": {
+        "filepath": ".git\\logs\\refs\\heads\\main",
+        "content": "0000000000000000000000000000000000000000 585ffd2143bc5351add949bb9c38ea4373bb6b5c marodatavision <maxrosen926@gmail.com> 1753906492 +0200\tcommit (initial): first commit\n585ffd2143bc5351add949bb9c38ea4373bb6b5c 3faed320003b2c450403a96850f427ad7ac87c88 marodatavision <maxrosen926@gmail.com> 1753907502 +0200\tcommit: first python files created\n"
+    },
+    "File32": {
+        "filepath": ".git\\logs\\refs\\remotes\\origin\\main",
+        "content": "0000000000000000000000000000000000000000 585ffd2143bc5351add949bb9c38ea4373bb6b5c marodatavision <maxrosen926@gmail.com> 1753907092 +0200\tupdate by push\n585ffd2143bc5351add949bb9c38ea4373bb6b5c 3faed320003b2c450403a96850f427ad7ac87c88 marodatavision <maxrosen926@gmail.com> 1753907535 +0200\tupdate by push\n"
+    },
+    "File33": {
+        "filepath": ".git\\objects\\06\\3c43c560f85aaca42c2bf3d9f2c3033c753512",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xb0 in position 7: invalid start byte>"
+    },
+    "File34": {
+        "filepath": ".git\\objects\\07\\7315af7387532e6b38a1073d9d9913891b2ee3",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xd0 in position 18: invalid continuation byte>"
+    },
+    "File35": {
+        "filepath": ".git\\objects\\0e\\674cc29580f76e516bc007bbcad60517584257",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xb4 in position 8: invalid start byte>"
+    },
+    "File36": {
+        "filepath": ".git\\objects\\0f\\5283c99e9a38d3dec863a59dadd6ac90940512",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x8f in position 3: invalid start byte>"
+    },
+    "File37": {
+        "filepath": ".git\\objects\\1e\\e83b52267a27f1e78b5963136adec22390c9e0",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x85 in position 15: invalid start byte>"
+    },
+    "File38": {
+        "filepath": ".git\\objects\\1f\\7c3241125e4218e70207c4264ca7991e228f28",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File39": {
+        "filepath": ".git\\objects\\20\\8e07bd88bd414bdd465784fb6ec433b00d17de",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xd0 in position 18: invalid continuation byte>"
+    },
+    "File40": {
+        "filepath": ".git\\objects\\23\\17142bd006fa7bfa5cc6fa06620461cd234809",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xc3 in position 6: invalid continuation byte>"
+    },
+    "File41": {
+        "filepath": ".git\\objects\\24\\931aaf39d77f3000bbce487393c0e578380c38",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x85 in position 15: invalid start byte>"
+    },
+    "File42": {
+        "filepath": ".git\\objects\\39\\45480f8556772343518294516483eaf85a531c",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File43": {
+        "filepath": ".git\\objects\\3b\\c185dae3698b79ff1e9c37f6622a8beb8767b0",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte>"
+    },
+    "File44": {
+        "filepath": ".git\\objects\\3f\\aed320003b2c450403a96850f427ad7ac87c88",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x9d in position 2: invalid start byte>"
+    },
+    "File45": {
+        "filepath": ".git\\objects\\58\\5ffd2143bc5351add949bb9c38ea4373bb6b5c",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x9d in position 2: invalid start byte>"
+    },
+    "File46": {
+        "filepath": ".git\\objects\\5e\\81b2704fb2370576573421bb6b2664a3556f05",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x91 in position 3: invalid start byte>"
+    },
+    "File47": {
+        "filepath": ".git\\objects\\69\\588835ad3444eea1d71a77e335037671672d46",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File48": {
+        "filepath": ".git\\objects\\80\\ec50b301ffc60d7d2237114ee13d2ea457076b",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x85 in position 14: invalid start byte>"
+    },
+    "File49": {
+        "filepath": ".git\\objects\\87\\3c84824999b944a8a3eb484d5d233a3bb12824",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File50": {
+        "filepath": ".git\\objects\\8f\\9f032114f47521121ec13aeefede71a5a6ddac",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xce in position 18: invalid continuation byte>"
+    },
+    "File51": {
+        "filepath": ".git\\objects\\95\\674184cfd5391c2b4f6acf8fa84855ef5bad74",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xc3 in position 6: invalid continuation byte>"
+    },
+    "File52": {
+        "filepath": ".git\\objects\\9d\\1dcfdaf1a6857c5f83dc27019c7600e1ffaff8",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xb6 in position 8: invalid start byte>"
+    },
+    "File53": {
+        "filepath": ".git\\objects\\a3\\4e266c323b60f7092ccc42d6a83aef9972d355",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xb4 in position 8: invalid start byte>"
+    },
+    "File54": {
+        "filepath": ".git\\objects\\a8\\914fbb250477b64f4449429b5293a3fbf6e00e",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File55": {
+        "filepath": ".git\\objects\\b4\\e10e3ee591775b7efc26be979b5b434c746219",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xce in position 18: invalid continuation byte>"
+    },
+    "File56": {
+        "filepath": ".git\\objects\\c4\\72f5d935578c24a3e7a9688ff8430930bbf38c",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File57": {
+        "filepath": ".git\\objects\\cf\\e97461a4b09f14a817114071c5671306650f64",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x91 in position 3: invalid start byte>"
+    },
+    "File58": {
+        "filepath": ".git\\objects\\d0\\3d3422083eb58897a2d5feb86da597a247edb5",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File59": {
+        "filepath": ".git\\objects\\d2\\8b72c340ea7494918fd4f1519789879895c5ab",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x8e in position 3: invalid start byte>"
+    },
+    "File60": {
+        "filepath": ".git\\objects\\dd\\8aeb8baf0a85c136a1f7f763ab44e68f343786",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File61": {
+        "filepath": ".git\\objects\\e6\\82869764b60c9f3fcec53b3626f93f750e6871",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x8d in position 3: invalid start byte>"
+    },
+    "File62": {
+        "filepath": ".git\\objects\\e6\\9de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File63": {
+        "filepath": ".git\\objects\\fc\\a1bc202817bbc72bf52b21b887839c2af24403",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0x85 in position 14: invalid start byte>"
+    },
+    "File64": {
+        "filepath": ".git\\objects\\fd\\6a6eadea399a7594eb9f48583c33fa3034f9f9",
+        "content": "<Fehler beim Lesen: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte>"
+    },
+    "File65": {
+        "filepath": ".git\\refs\\heads\\main",
+        "content": "3faed320003b2c450403a96850f427ad7ac87c88\n"
+    },
+    "File66": {
+        "filepath": ".git\\refs\\remotes\\origin\\main",
+        "content": "3faed320003b2c450403a96850f427ad7ac87c88\n"
+    },
+    "File67": {
+        "filepath": "app\\config.py",
+        "content": "from pydantic import BaseSettings\n\nclass Settings(BaseSettings):\n    openai_api_key: str\n    embedding_model_name: str = \"openai\"\n    llm_model_name: str = \"gpt-3.5-turbo\"\n    chunk_size: int = 1000\n    overlap: int = 200\n\n    class Config:\n        env_file = \".env\"\n\nsettings = Settings()\n"
+    },
+    "File68": {
+        "filepath": "app\\adapters\\io\\__init__.py",
+        "content": ""
+    },
+    "File69": {
+        "filepath": "app\\adapters\\llm\\__init__.py",
+        "content": ""
+    },
+    "File70": {
+        "filepath": "app\\adapters\\vectorstore\\__init__.py",
+        "content": ""
+    },
+    "File71": {
+        "filepath": "app\\core\\interfaces\\__init__.py",
+        "content": ""
+    },
+    "File72": {
+        "filepath": "app\\core\\models\\__init__.py",
+        "content": ""
+    },
+    "File73": {
+        "filepath": "app\\entrypoints\\cli.py",
+        "content": "import sys\nfrom services.document_loader import load_and_split\nfrom services.embedding_service import embed_chunks\nfrom services.query_service import answer_query\nimport os\n\ndef main():\n    if len(sys.argv) < 3:\n        print(\"Usage: python cli.py <pdf_folder> <query>\")\n        sys.exit(1)\n    pdf_folder = sys.argv[1]\n    query = \" \".join(sys.argv[2:])\n    chunks = []\n    for fname in os.listdir(pdf_folder):\n        if fname.lower().endswith(\".pdf\"):\n            chunks.extend(load_and_split(os.path.join(pdf_folder, fname)))\n    emb = embed_chunks(chunks)\n    answer = answer_query(emb, query)\n    print(\"Antwort:\", answer)\n\nif __name__ == \"__main__\":\n    main()\n"
+    },
+    "File74": {
+        "filepath": "app\\services\\document_loader.py",
+        "content": "from langchain_community.document_loaders import PyPDFLoader\nfrom langchain.text_splitter import RecursiveCharacterTextSplitter\nfrom core.models import DocumentChunk\n\ndef load_and_split(pdf_path: str):\n    loader = PyPDFLoader(pdf_path)\n    docs = loader.load()\n    splitter = RecursiveCharacterTextSplitter(chunk_size=settings.chunk_size, chunk_overlap=settings.overlap)\n    chunks = splitter.split_documents(docs)\n    return [DocumentChunk(text=ch.page_content, metadata=ch.metadata) for ch in chunks]\n"
+    },
+    "File75": {
+        "filepath": "app\\services\\embedding_service.py",
+        "content": "from langchain.embeddings import OpenAIEmbeddings\nfrom core.models import DocumentChunk\n\nembeddings_model = OpenAIEmbeddings(openai_api_key=settings.openai_api_key)\n\ndef embed_chunks(chunks: list[DocumentChunk]) -> list[tuple[DocumentChunk, list[float]]]:\n    return [(chunk, embeddings_model.embed_query(chunk.text)) for chunk in chunks]\n"
+    },
+    "File76": {
+        "filepath": "app\\services\\query_service.py",
+        "content": "from langchain.chat_models import ChatOpenAI\nfrom langchain.chains import RetrievalQA\nfrom services.embedding_service import embeddings_model\nfrom services.retrieval_service import retrieve, build_store\n\nllm = ChatOpenAI(model_name=settings.llm_model_name, openai_api_key=settings.openai_api_key)\n\ndef answer_query(chunks_with_emb, query: str):\n    store = build_store(chunks_with_emb)\n    qa = RetrievalQA.from_chain_type(llm=llm, chain_type=\"stuff\", retriever=store.as_retriever())\n    return qa.run(query)\n"
+    },
+    "File77": {
+        "filepath": "app\\services\\retrieval_service.py",
+        "content": "from langchain.vectorstores import FAISS\nfrom core.models import DocumentChunk\n\ndef build_store(chunk_embeddings: list[tuple[DocumentChunk, list[float]]]):\n    texts = [c.text for c,_ in chunk_embeddings]\n    embs = [emb for _,emb in chunk_embeddings]\n    store = FAISS.from_embeddings(embs, texts)\n    return store\n\ndef retrieve(store, query: str, k: int = 5):\n    results = store.similarity_search(query, k=k)\n    return results\n"
+    },
+    "File78": {
+        "filepath": "tests\\adapters\\__init__.py",
+        "content": ""
+    },
+    "File79": {
+        "filepath": "tests\\core\\__init__.py",
+        "content": ""
+    },
+    "File80": {
+        "filepath": "tests\\services\\__init__.py",
+        "content": ""
+    }
+}
