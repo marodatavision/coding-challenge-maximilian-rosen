@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+.idea/
+.vscode/
+*.log
+*.sqlite3
+dist/
+build/

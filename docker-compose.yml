@@ -1,0 +1,8 @@
+# docker-compose zum Starten der App (optional mit Vector DB)
+version: '3.8'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    command: python app/entrypoints/cli.py
