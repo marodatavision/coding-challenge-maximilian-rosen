@@ -41,7 +41,7 @@ Dieses Projekt ist eine prototypische Implementierung einer Retrieval-Augmented-
 
      Beispielabfrage (voreingestellt in `docker-compose.yml`):
      ```text
-     Welche Leuchte hat die Erzeugnisnummer 4062172212311?
+     Was ist die Farbtemperatur von SIRIUS HRI 330W 2/CS 1/SKU?
      ```
 
    - **Testmodus:**
