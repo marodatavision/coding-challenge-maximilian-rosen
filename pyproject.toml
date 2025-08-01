@@ -1,5 +1,34 @@
-[tool.black]
-line-length = 88
+[tool.poetry]
+name = "rag-pdf-search"
+version = "0.1.0"
+description = "RAG-basierte PDF-Suchlösung mit LangChain und OpenAI"
+authors = ["Maximilian Rosen <maximilian.rosen@gmx.de>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "app" }]
 
-[tool.isort]
-profile = "black"
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Core
+langchain = "^0.2.0"
+langchain-openai = "^0.1.3"
+openai = "^1.25.1"
+faiss-cpu = "1.7.4"
+pypdf = "3.17.4"
+python-dotenv = "1.0.1"
+pdfminer-six = "20221105"
+pydrive = "1.3.1"
+google-api-python-client = "2.126.0"
+oauth2client = "4.1.3"
+
+# Settings
+pydantic = "2.7.1"
+pydantic-settings = "2.2.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

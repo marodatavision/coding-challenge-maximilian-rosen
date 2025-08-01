@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+# Systemtools
+RUN apt-get update && apt-get install -y curl build-essential git && rm -rf /var/lib/apt/lists/*
+
+# Arbeitsverzeichnis
+WORKDIR /app
+
+# Poetry installieren
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+
+# Nur pyproject.toml kopieren
+COPY pyproject.toml ./
+
+# Lockfile erzeugen
+RUN poetry lock

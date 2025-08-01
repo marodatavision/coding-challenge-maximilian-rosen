@@ -1,10 +1,9 @@
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from app.core.models import DocumentChunk
+from app.config import settings
+from app.services.local_pdf_loader import load_local_documents
+from app.services.gdrive_loader import load_gdrive_documents
 
-def load_and_split(pdf_path: str):
-    loader = PyPDFLoader(pdf_path)
-    docs = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=settings.chunk_size, chunk_overlap=settings.overlap)
-    chunks = splitter.split_documents(docs)
-    return [DocumentChunk(text=ch.page_content, metadata=ch.metadata) for ch in chunks]
+def load_documents() -> list:
+    if settings.use_gdrive:
+        return load_gdrive_documents(folder_id=settings.gdrive_folder_id)
+    else:
+        return load_local_documents(path="data/pdfs")

@@ -1,24 +1,29 @@
-# Dockerfile für RAG App mit Testfunktionalität
+# Basisimage
 FROM python:3.11-slim
 
-# Systempakete für PDF-Verarbeitung & Build
+# Systempakete installieren
 RUN apt-get update && apt-get install -y \
     build-essential \
+    curl \
+    git \
     libpoppler-cpp-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Arbeitsverzeichnis
 WORKDIR /app
 
-# Abhängigkeiten
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Poetry installieren
+RUN curl -sSL https://install.python-poetry.org | python3 - \
+    && ln -s /root/.local/bin/poetry /usr/local/bin/poetry
 
-# Entwicklungs-Tools (z. B. pytest)
-RUN pip install pytest
+# Projektdateien kopieren (nur für Dependency-Auflösung)
+COPY pyproject.toml poetry.lock ./
 
-# Quellcode
+# Dependencies installieren (ohne Dev-Tools, wenn prod-Image)
+RUN poetry install --no-root
+
+# Quellcode kopieren
 COPY . .
 
-# Default-Befehl: Tests ausführen
-CMD ["pytest", "--maxfail=3", "--disable-warnings", "-q"]
+# Standardbefehl (Testmodus als default)
+CMD ["poetry", "run", "pytest", "--maxfail=3", "--disable-warnings", "-q"]
