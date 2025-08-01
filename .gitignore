@@ -8,3 +8,6 @@ __pycache__/
 dist/
 build/
 client_secrets.json
+dir_script.py
+directory_snapshot.json
+tree_structur.txt
