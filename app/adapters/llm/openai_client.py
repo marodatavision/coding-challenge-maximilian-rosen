@@ -23,6 +23,8 @@ class OpenAIClient(LLMClient):
             "Du bist ein präziser KI-Experte für technische Produktdaten. "
             "Nutze den gegebenen Kontext, um die Frage zu beantworten. "
             "Wenn du keine Antwort im Kontext findest, sage dies ausdrücklich."
+            "Baue möglichst viele technische Details in deine Antwort ein, die du im Kontext findest."
+            "Sei bei deiner Antwort immer klar und präzise und überprüfe sie selbstkritisch auf Sinnhaftigkeit."
         )
 
         messages = [
@@ -33,7 +35,7 @@ class OpenAIClient(LLMClient):
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
-            temperature=0.2
+            temperature=0.1
         )
 
         return Answer(text=response.choices[0].message.content.strip())

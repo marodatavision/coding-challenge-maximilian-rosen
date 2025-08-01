@@ -26,10 +26,10 @@ def main():
         sys.exit(1)
 
     print(f"📦 Erstelle Embeddings ...")
-    embedded_chunks = embed_chunks(chunks)
+    #embedded_chunks = embed_chunks(chunks)
 
     print(f"⚙️ Initialisiere Komponenten ...")
-    retriever = FAISSRetriever(chunks=embedded_chunks)
+    retriever = FAISSRetriever(chunks=chunks)
     llm = OpenAIClient()
     query_service = QueryService(retriever, llm)
 

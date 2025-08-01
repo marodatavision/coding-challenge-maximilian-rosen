@@ -26,7 +26,7 @@ class FAISSRetriever(Retriever):
 
         self.store = FAISS.from_documents(documents=docs, embedding=self.embeddings)
 
-    def retrieve(self, query: Query, top_k: int = 5) -> List[DocumentChunk]:
+    def retrieve(self, query: Query, top_k: int = 20) -> List[DocumentChunk]:
         """
         Sucht die relevantesten Chunks basierend auf semantischer Ähnlichkeit.
         """
