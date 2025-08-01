@@ -23,17 +23,14 @@ Dieses Projekt ist eine prototypische Implementierung einer Retrieval-Augmented-
 2. **Umgebungsvariablen setzen**  
    Kopiere die Beispieldatei:
    ```bash
-   cp .env.example .env
+   cp .env.example .env -> linux
+   copy .env.example .env -> windows
    ```
    Trage deinen OpenAI API Key in `.env` ein:
 
    ```env
    OPENAI_API_KEY=sk-...
    ```
-
-   Optional: Wenn du Google Drive als Datenquelle verwenden willst:
-   - Setze `USE_GDRIVE=true`
-   - Trage `GDRIVE_FOLDER_ID` und Pfad zur JSON-Schlüsseldatei ein
 
 3. **Docker starten**
 
@@ -132,12 +129,3 @@ Wenn das System auf **10.000+ PDFs** erweitert werden soll, sind folgende Schrit
 ## 📄 Lizenz und Hinweise
 
 Dieses Projekt wurde im Rahmen einer technischen Challenge entwickelt und ist nicht für den produktiven Einsatz bestimmt. Der Zugriff auf OpenAI-Dienste erfordert einen gültigen API-Key.
-
----
-
-## 👥 Reviewer-Zugriff
-
-Bitte gib folgenden Accounts Zugriff auf dein privates Repository:
-- `mjeskulke`
-- `mroedder-d7`
-- `tkreuder`
