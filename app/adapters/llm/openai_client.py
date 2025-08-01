@@ -1,6 +1,6 @@
-from core.interfaces.llm_client import LLMClient
-from core.models.query import Query
-from core.models.answer import Answer
+from app.core.interfaces.llm_client import LLMClient
+from app.core.models.query import Query
+from app.core.models.answer import Answer
 from openai import OpenAI
 from app.config import settings
 

@@ -6,7 +6,8 @@ from app.core.models.document import Document
 
 def load_gdrive_documents(folder_id: str) -> list[Document]:
     gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()
+    # Authentifiziere über Service-Account
+    gauth.LoadServiceConfigFile(os.getenv("GDRIVE_SERVICE_ACCOUNT_FILE"))
     drive = GoogleDrive(gauth)
 
     file_list = drive.ListFile({

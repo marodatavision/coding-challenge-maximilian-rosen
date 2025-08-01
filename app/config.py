@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     overlap: int = 200
     use_gdrive: bool = False
     gdrive_folder_id: str = ""
+    gdrive_service_account_file: str = "gdrive_service_account.json"
 
     class Config:
         env_file = ".env"

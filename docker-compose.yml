@@ -6,6 +6,7 @@ services:
     container_name: rag-test
     volumes:
       - .:/app
+      - ./gdrive_service_account.json:/app/gdrive_service_account.json:ro
     env_file:
       - .env
     environment:
