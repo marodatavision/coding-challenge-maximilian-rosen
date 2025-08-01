@@ -1,11 +1,24 @@
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import RetrievalQA
-from services.embedding_service import embeddings_model
-from services.retrieval_service import retrieve, build_store
+from core.interfaces.llm_client import LLMClient
+from core.interfaces.retriever import Retriever
+from core.models.query import Query
+from core.models.answer import Answer
 
-llm = ChatOpenAI(model_name=settings.llm_model_name, openai_api_key=settings.openai_api_key)
 
-def answer_query(chunks_with_emb, query: str):
-    store = build_store(chunks_with_emb)
-    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=store.as_retriever())
-    return qa.run(query)
+class QueryService:
+    """
+    Koordiniert den RAG-Prozess:
+    1. Dokumentrecherche (Retriever)
+    2. Antwortgenerierung (LLMClient)
+    """
+
+    def __init__(self, retriever: Retriever, llm_client: LLMClient):
+        self.retriever = retriever
+        self.llm_client = llm_client
+
+    def run(self, query: Query) -> Answer:
+        """
+        Führt einen Query aus: Suche + Antwortgenerierung
+        """
+        chunks = self.retriever.retrieve(query)
+        context = "\n\n".join([chunk.text for chunk in chunks])
+        return self.llm_client.answer(query, context)
