@@ -76,13 +76,6 @@ Dieses Projekt ist eine prototypische Implementierung einer Retrieval-Augmented-
 ├── poetry.lock
 ├── pyproject.toml
 ├── README.md
-├── tree_structur.txt
-├── .pytest_cache/
-│   ├── .gitignore
-│   ├── CACHEDIR.TAG
-│   ├── README.md
-│   └── v/
-│       └── cache/
 ├── app/
 │   ├── config.py
 │   ├── __init__.py
