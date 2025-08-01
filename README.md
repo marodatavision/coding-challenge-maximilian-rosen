@@ -16,8 +16,8 @@ Dieses Projekt ist eine prototypische Implementierung einer Retrieval-Augmented-
 
 1. **Repository klonen**  
    ```bash
-   git clone <repo-url>
-   cd <repo-name>
+   git clone https://github.com/marodatavision/coding-challenge-maximilian-rosen
+   cd coding-challenge-maximilian-rosen
    ```
 
 2. **Umgebungsvariablen setzen**  
