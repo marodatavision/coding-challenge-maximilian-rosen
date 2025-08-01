@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
-from core.models.query import Query
-from core.models.document_chunk import DocumentChunk
+from app.core.models.query import Query
+from app.core.models.document_chunk import DocumentChunk
 
 
 class Retriever(ABC):

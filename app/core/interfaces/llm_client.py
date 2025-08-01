@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from core.models.query import Query
-from core.models.answer import Answer
+from app.core.models.query import Query
+from app.core.models.answer import Answer
 
 
 class LLMClient(ABC):

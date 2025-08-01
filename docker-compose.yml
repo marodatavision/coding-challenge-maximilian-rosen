@@ -1,8 +1,32 @@
-# docker-compose zum Starten der App (optional mit Vector DB)
-version: '3.8'
 services:
-  app:
-    build: .
+  # 🧪 Testmodus
+  rag-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-test
     volumes:
       - .:/app
-    command: python app/entrypoints/cli.py
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/app
+    command: ["pytest", "--maxfail=3", "--disable-warnings", "-q"]
+
+  # 🚀 Produktionsmodus (z. B. CLI-Anfrage ausführen)
+  rag-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-prod
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/app
+    stdin_open: true     # Erlaubt interaktive Eingabe
+    tty: true
+    entrypoint: ["python", "app/entrypoints/cli.py"]
+    # Beispiel-Query direkt hier definieren, sonst leer lassen
+    command: ["data/pdfs", "Welche Leuchte hat die Erzeugnisnummer 4062172212311?"]

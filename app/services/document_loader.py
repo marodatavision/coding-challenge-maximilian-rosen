@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from core.models import DocumentChunk
+from app.core.models import DocumentChunk
 
 def load_and_split(pdf_path: str):
     loader = PyPDFLoader(pdf_path)

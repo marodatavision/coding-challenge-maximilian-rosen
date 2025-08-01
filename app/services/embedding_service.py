@@ -1,5 +1,5 @@
 from langchain.embeddings import OpenAIEmbeddings
-from core.models import DocumentChunk
+from app.core.models import DocumentChunk
 
 embeddings_model = OpenAIEmbeddings(openai_api_key=settings.openai_api_key)
 

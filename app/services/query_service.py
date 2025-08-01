@@ -1,7 +1,7 @@
-from core.interfaces.llm_client import LLMClient
-from core.interfaces.retriever import Retriever
-from core.models.query import Query
-from core.models.answer import Answer
+from app.core.interfaces.llm_client import LLMClient
+from app.core.interfaces.retriever import Retriever
+from app.core.models.query import Query
+from app.core.models.answer import Answer
 
 
 class QueryService:
