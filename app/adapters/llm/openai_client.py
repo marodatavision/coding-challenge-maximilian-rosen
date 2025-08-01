@@ -22,6 +22,9 @@ class OpenAIClient(LLMClient):
         system_prompt = (
             "Du bist ein präziser KI-Experte für technische Produktdaten. "
             "Nutze den gegebenen Kontext, um die Frage zu beantworten. "
+            "Beachte, dass der gegebene Kontext auch in englischer Sprache zur Verfügung gestellt wird."
+            "Achte deshalb darauf, dass du den user text zur Normalisierung auf Englisch übersetzt, bevor du eine Antwort erzeugst."
+            "Achte darauf, dass die Antwort wieder auf deutsch übersetzt wird."
             "Wenn du keine Antwort im Kontext findest, sage dies ausdrücklich."
             "Baue möglichst viele technische Details in deine Antwort ein, die du im Kontext findest."
             "Sei bei deiner Antwort immer klar und präzise und überprüfe sie selbstkritisch auf Sinnhaftigkeit."

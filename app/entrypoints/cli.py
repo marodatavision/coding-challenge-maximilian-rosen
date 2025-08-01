@@ -9,14 +9,9 @@ from app.adapters.vectorstore.faiss_retriever import FAISSRetriever
 from app.adapters.llm.openai_client import OpenAIClient
 from app.core.models.query import Query
 
+
 def main():
     load_dotenv()
-
-    if len(sys.argv) < 2:
-        print("❗ Usage: python app/entrypoints/cli.py <deine frage>")
-        sys.exit(1)
-
-    user_question = " ".join(sys.argv[1:])
 
     print(f"🔍 Lade und verarbeite Dokumente ...")
     chunks = load_and_split()
@@ -33,16 +28,29 @@ def main():
     llm = OpenAIClient()
     query_service = QueryService(retriever, llm)
 
-    print(f"💬 Sende Anfrage an das System ...")
-    query = Query(text=user_question)
-    answer = query_service.run(query)
+    print("\n🟢 Starte Chat. Gib 'exit' ein, um zu beenden.\n")
 
-    print("\n✅ Antwort:\n")
-    print(answer.text)
-    if answer.sources:
-        print("\n🔗 Quellen:")
-        for src in answer.sources:
-            print(f"- {src}")
+    while True:
+        user_input = input("💬 Deine Frage: ").strip()
+        if user_input.lower() in {"exit", "quit"}:
+            print("👋 Bis zum nächsten Mal!")
+            break
+
+        if not user_input:
+            continue
+
+        query = Query(text=user_input)
+        answer = query_service.run(query)
+
+        print("\n✅ Antwort:\n")
+        print(answer.text)
+
+        if answer.sources:
+            print("\n🔗 Quellen:")
+            for src in answer.sources:
+                print(f"- {src}")
+        print("\n" + "-" * 60 + "\n")
+
 
 if __name__ == "__main__":
     main()
